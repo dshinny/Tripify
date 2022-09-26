@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-mongoose.connect(`mongodb://localhost/${process.env.DATABASE}`, { useNewUrlParser: true, useUnifiedTopology: true  })
+mongoose.connect(`mongodb://localhost/${process.env.DB_NAME}`, { useNewUrlParser: true, useUnifiedTopology: true  })
   .then(() => {
-    console.log(`Connecting to ${process.env.DATABASE}`)
+    console.log(`Connecting to ${process.env.DB_NAME}`)
   })
   .catch(() => {
     console.log('Failed to connect to database')
