@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-const Login = ({ setLoggedIn }) => {
+const Login = ({ setLoggedIn, setUser }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -15,10 +15,9 @@ const Login = ({ setLoggedIn }) => {
       email: data.get('email') || '',
       password: data.get('password') || '',
     };
-    console.log(options)
     axios.post('/login', options)
       .then(res => {
-        console.log('logged in:', res.data)
+        setUser(res.data);
         setLoggedIn(true);
       })
       .catch(err => {
