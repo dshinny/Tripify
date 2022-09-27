@@ -4,9 +4,13 @@ const bcrypt = require('bcrypt');
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  const validPassword = await bcrypt.compare(password, user.password)
-  if (validPassword) {
-    res.send(user)
+  if (user) {
+    const validPassword = await bcrypt.compare(password, user.password)
+    if (validPassword) {
+      res.send(user)
+    } else {
+      res.status(404).end('Incorrect email or password');
+    }
   } else {
     res.status(404).end('Incorrect email or password');
   }
