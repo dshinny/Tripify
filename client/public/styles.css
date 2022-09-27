@@ -1,0 +1,20 @@
+.search-bar {
+  position: relative;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.list-list {
+  height: 75vh;
+  overflow: auto;
+}
+
+.list-select {
+  min-width: 100px;
+  margin-bottom: 30px;
+  margin-right: 10px;
+}
+
+.place-ranking {
+  color: grey !important;
+}
