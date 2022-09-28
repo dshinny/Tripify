@@ -6,14 +6,15 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AddIcon from '@mui/icons-material/Add'
 
-const PlaceDetails = ({ place, addCollection }) => {
+const PlaceDetails = ({ place, addCollection, type }) => {
 
   const [open, setOpen] = useState(false);
 
   const handleAdd = (date) => {
     let data = {
       date: date.toString(),
-      place: place
+      place: place,
+      type: type
     }
     addCollection(data);
   }

@@ -41,7 +41,7 @@ const List = ({ places, isLoading, type, setType, rating, setRating, addCollecti
           <Grid container spacing={3} className='list-list'>
             {places?.map((place, i) => (
               <Grid item key={i} xs={12}>
-                <PlaceDetails place={place} addCollection={addCollection}
+                <PlaceDetails place={place} addCollection={addCollection} type={type}
                 />
               </Grid>
             ))}
