@@ -15,7 +15,7 @@ import styled from 'styled-components'
 
 const App = () => {
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
   const [places, setPlaces] = useState([]);
