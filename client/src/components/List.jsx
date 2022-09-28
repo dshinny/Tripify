@@ -4,7 +4,7 @@ import PlaceDetails from './PlaceDetails.jsx';
 import styled from 'styled-components';
 import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select, InputBase } from '@mui/material';
 
-const List = ({ places, isLoading, type, setType, rating, setRating, addCollection }) => {
+const List = ({ places, isLoading, type, setType, rating, setRating, addCollection, status, setStatus }) => {
 
   return (
     <Container>
@@ -29,6 +29,13 @@ const List = ({ places, isLoading, type, setType, rating, setRating, addCollecti
               <MenuItem value={3}>Above 3</MenuItem>
               <MenuItem value={4}>Above 4</MenuItem>
               <MenuItem value={4.5}>Above 4.5</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl variant='standard'>
+            <InputLabel>All</InputLabel>
+            <Select className='list-select' value={status} label='status' onChange={(e) => setStatus(e.target.value)}>
+              <MenuItem value='all'>All</MenuItem>
+              <MenuItem value='open'>Open Now</MenuItem>
             </Select>
           </FormControl>
           <Grid container spacing={3} className='list-list'>
