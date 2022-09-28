@@ -34,7 +34,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
                 <TableRow hover sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell>{date}</TableCell>
                   <TableCell>{item.place.name}</TableCell>
-                  <TableCell>{item.type}</TableCell>
+                  <TableCell>{item.place.category.name}</TableCell>
                   <TableCell sx={{ paddingRight: 3 }}>
                     <Button onClick={() => handleDelete(item, i)}>
                       <DeleteIcon/>
