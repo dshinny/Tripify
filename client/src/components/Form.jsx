@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, Button, Typography } from '@mui/material';
-import Calendar from 'react-calendar';
+import { Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Button, Typography, Input } from '@mui/material';
 
 const Form = ({ open, closeForm, handleAdd }) => {
 
@@ -11,15 +10,22 @@ const Form = ({ open, closeForm, handleAdd }) => {
     closeForm();
   }
 
-  const onChange = date => {
-    setDate(date);
+  const onChange = (e) => {
+    setDate(new Date(e.target.value).toUTCString());
   }
 
   return (
     <Dialog open={open} onBackdropClick={closeForm}>
-      <Typography variant='h6' sx={{ textAlign: 'center' }}>Add to Itinerary</Typography>
-      <Calendar onChange={onChange} value={date}/>
-      <Button variant='contained' color='primary' size='small' onClick={handleClick}>Add</Button>
+      <DialogTitle>Add to Itinerary</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          When would you like to go?
+        </DialogContentText>
+        <Input type='date' onChange={onChange}/>
+        <DialogActions>
+          <Button variant='contained' color='primary' size='small' onClick={handleClick}>Add</Button>
+        </DialogActions>
+      </DialogContent>
     </Dialog>
   )
 }
