@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-const SignUp = ({ setLoggedIn }) => {
+const SignUp = ({ setLoggedIn, setUser }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -19,7 +19,7 @@ const SignUp = ({ setLoggedIn }) => {
     };
     axios.post('/signup', options)
       .then(res => {
-        console.log('signed up:', res.data)
+        setUser(res.data)
         setLoggedIn(true)
       })
       .catch(err => {
@@ -72,7 +72,6 @@ const SignUp = ({ setLoggedIn }) => {
                 <TextField
                   required
                   fullWidth
-                  id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
@@ -85,7 +84,6 @@ const SignUp = ({ setLoggedIn }) => {
                   name="password"
                   label="Password"
                   type="password"
-                  id="password"
                   autoComplete="new-password"
                 />
               </Grid>
