@@ -26,6 +26,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState('');
+  const [status, setStatus] = useState('');
 
   const [collection, setCollection] = useState([]);
   const [openCol, setOpenCol] = useState(false);
@@ -43,6 +44,7 @@ const App = () => {
     const conf = confirm('Sign Out?')
     if (conf) {
       setLoggedIn(false);
+      setUser(null);
     }
   }
 
@@ -57,12 +59,23 @@ const App = () => {
     setFilteredPlaces(filteredPlaces);
   }, [rating])
 
+  useEffect(() => {
+    if (status === 'open') {
+      if (filteredPlaces.length === 0) {
+        const filter = places.filter((place => !place.is_closed));
+        setFilteredPlaces(filter)
+      } else {
+        const filtered = filteredPlaces.filter((place => !place.is_closed));
+        setFilteredPlaces(filtered)
+      }
+    }
+  }, [status])
+
   // useEffect(() => {
   //   if (bounds.sw && bounds.ne && loggedIn) {
   //     setIsLoading(true);
   //     getPlacesData(type, bounds.sw, bounds.ne)
   //       .then(data => {
-  //         console.log('data: ', data)
   //         setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
   //         setFilteredPlaces([]);
   //         setIsLoading(false);
@@ -87,11 +100,11 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      <Header setCoordinates={setCoordinates} setOpenCol={setOpenCol} loggedIn={loggedIn} signOut={signOut} />
+      <Header setCoordinates={setCoordinates} setOpenCol={setOpenCol} loggedIn={loggedIn} signOut={signOut} user={user}/>
       {loggedIn ? (
         <FlexItem>
           <FlexChild>
-            <List places={filteredPlaces.length ? filteredPlaces : places} isLoading={isLoading} type={type} setType={setType} rating={rating} setRating={setRating} addCollection={addCollection} />
+            <List places={filteredPlaces.length ? filteredPlaces : places} isLoading={isLoading} type={type} setType={setType} rating={rating} setRating={setRating} addCollection={addCollection} status={status} setStatus={setStatus}/>
             <Itinerary collection={collection} openCol={openCol} setOpenCol={setOpenCol} setCollection={setCollection}/>
           </FlexChild>
         </FlexItem>
