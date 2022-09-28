@@ -37,10 +37,10 @@ const PlaceDetails = ({ place, addCollection }) => {
           <Chip key={name} size='small' label={name} style={{ margin: '5px 5px 5px 0' }}/>
         ))}
         <div>
-          {place.open_now_text ? (
-            <Chip size='small' label='Open' style={{ margin: '5px 5px 5px 0' }} color='success'/>
-          ) : (
+          {place.is_closed ? (
             <Chip size='small' label='Closed' style={{ margin: '5px 5px 5px 0' }} color='error'/>
+            ) : (
+            <Chip size='small' label='Open' style={{ margin: '5px 5px 5px 0' }} color='success'/>
           )}
         </div>
         {place?.address && (
