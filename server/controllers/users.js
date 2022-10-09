@@ -7,6 +7,7 @@ const login = async (req, res) => {
   if (user) {
     const validPassword = await bcrypt.compare(password, user.password)
     if (validPassword) {
+      req.session.user_id = user._id;
       res.send(user)
     } else {
       res.status(404).end('Incorrect email or password');
@@ -31,6 +32,7 @@ const signup = async (req, res) => {
       password: hash
     })
     await user.save();
+    req.session.user_id = user._id;
     res.send(user)
   } else {
     res.status(404).end('Email already registered')
