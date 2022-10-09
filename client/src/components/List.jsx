@@ -4,7 +4,14 @@ import PlaceDetails from './PlaceDetails.jsx';
 import styled from 'styled-components';
 import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select, InputBase } from '@mui/material';
 
-const List = ({ places, isLoading, type, setType, rating, setRating, addCollection, status, setStatus }) => {
+const List = ({ places, isLoading, childClicked, type, setType, rating, setRating, addCollection, status, setStatus }) => {
+
+  const [elRefs, setElRefs] = useState([]);
+
+  useEffect(() => {
+    const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef());
+    setElRefs(refs);
+  }, [places])
 
   return (
     <Container>
@@ -40,8 +47,8 @@ const List = ({ places, isLoading, type, setType, rating, setRating, addCollecti
           </FormControl>
           <Grid container spacing={3} className='list-list'>
             {places?.map((place, i) => (
-              <Grid item key={i} xs={12}>
-                <PlaceDetails place={place} addCollection={addCollection} type={type}
+              <Grid ref={elRefs[i]} item key={i} xs={12}>
+                <PlaceDetails place={place} selected={Number(childClicked) === i} refProp={elRefs[i]} addCollection={addCollection} type={type}
                 />
               </Grid>
             ))}

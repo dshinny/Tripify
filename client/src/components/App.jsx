@@ -6,6 +6,7 @@ import Header from './Header.jsx';
 import Login from './Login.jsx';
 import SignUp from './Signup.jsx';
 import List from './List.jsx';
+import Map from './Map.jsx';
 import Itinerary from './Itinerary.jsx';
 
 import { Autocomplete } from '@react-google-maps/api';
@@ -22,6 +23,7 @@ const App = () => {
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState({});
+  const [childClicked, setChildClicked] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState('restaurants');
@@ -84,30 +86,41 @@ const App = () => {
   }, [type, bounds])
 
   // for no map
-  useEffect(() => {
-    setBounds({
-      ne: {
-        lat: coordinates.lat + 0.025,
-        lng: coordinates.lng + 0.06
-      },
-      sw: {
-        lat: coordinates.lat - 0.025,
-        lng: coordinates.lng - 0.06
-      }
-    })
-  }, [coordinates])
+  // useEffect(() => {
+  //   setBounds({
+  //     ne: {
+  //       lat: coordinates.lat + 0.025,
+  //       lng: coordinates.lng + 0.06
+  //     },
+  //     sw: {
+  //       lat: coordinates.lat - 0.025,
+  //       lng: coordinates.lng - 0.06
+  //     }
+  //   })
+  // }, [coordinates])
 
   return (
     <>
       <CssBaseline />
       <Header setCoordinates={setCoordinates} setOpenCol={setOpenCol} loggedIn={loggedIn} signOut={signOut} user={user}/>
       {loggedIn ? (
-        <FlexItem>
-          <FlexChild>
-            <List places={filteredPlaces.length ? filteredPlaces : places} isLoading={isLoading} type={type} setType={setType} rating={rating} setRating={setRating} addCollection={addCollection} status={status} setStatus={setStatus}/>
+        <Grid container spacing={3} style={{ width: '100%' }}>
+          <Grid item xs={12} md={4}>
+            <List places={filteredPlaces.length ? filteredPlaces : places} childClicked={childClicked} isLoading={isLoading} type={type} setType={setType} rating={rating} setRating={setRating} addCollection={addCollection} status={status} setStatus={setStatus}/>
+          </Grid>
+            <Grid item xs={12} md={8}>
+              <Map coordinates={coordinates} setCoordinates={setCoordinates} setBounds={setBounds} places={filteredPlaces.length ? filteredPlaces : places} setChildClicked={setChildClicked}/>
+            </Grid>
+          <Grid item xs={12} md={12}>
             <Itinerary collection={collection} openCol={openCol} setOpenCol={setOpenCol} setCollection={setCollection}/>
-          </FlexChild>
-        </FlexItem>
+          </Grid>
+        </Grid>
+        // <FlexItem>
+        //   <FlexChild>
+        //     <List places={filteredPlaces.length ? filteredPlaces : places} childClicked={childClicked} isLoading={isLoading} type={type} setType={setType} rating={rating} setRating={setRating} addCollection={addCollection} status={status} setStatus={setStatus}/>
+        //     <Itinerary collection={collection} openCol={openCol} setOpenCol={setOpenCol} setCollection={setCollection}/>
+        //   </FlexChild>
+        // </FlexItem>
       ) : (
         <Flex>
           <SignUp setLoggedIn={setLoggedIn} setUser={setUser}/>

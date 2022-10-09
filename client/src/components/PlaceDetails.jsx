@@ -6,9 +6,13 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AddIcon from '@mui/icons-material/Add'
 
-const PlaceDetails = ({ place, addCollection, type }) => {
+const PlaceDetails = ({ place, addCollection, type, refProp, selected }) => {
 
   const [open, setOpen] = useState(false);
+
+  if (selected) {
+    refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   const handleAdd = (date) => {
     let data = {
